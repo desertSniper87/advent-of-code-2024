@@ -36,11 +36,12 @@ func main() {
 			return
 		}
 
-		if err := scanner.Err(); err != nil {
-			fmt.Printf("Error reading file: %v\n", err)
-		}
-
 		i++
+
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Printf("Error reading file: %v\n", err)
 	}
 
 	sort.Ints(set1)
@@ -57,5 +58,22 @@ func main() {
 		}
 	}
 
-	fmt.Print(sum)
+	freq := getFrequencyMap(set2)
+	sum = 0
+
+	for _, i := range set1 {
+		fmt.Println("freq[i]: ", freq[i])
+		sum += freq[i] * i
+	}
+
+	fmt.Printf("Sum: %d\n", sum)
+}
+
+// Using map for multiple elements
+func getFrequencyMap(list []int) map[int]int {
+	freq := make(map[int]int)
+	for _, num := range list {
+		freq[num]++
+	}
+	return freq
 }
